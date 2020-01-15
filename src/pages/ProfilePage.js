@@ -37,7 +37,29 @@ const getUser = `query GetUser($id: ID!) {
 
 class ProfilePage extends React.Component {
   state = {
-    orders: []
+    orders: [],
+    columns: [
+      { prop: "name", width: "150" },
+      { prop: "value", width: "330" },
+      { prop: "tag", width: "150", render: row => {
+        if (row.name === "Email") {
+          const emailVerified = this.props.user.attributes.email_verified;
+          return emailVerified
+            ? <Tag type="success">Verified</Tag>
+            : <Tag type="danger">Unverified</Tag>
+        }
+      } },
+      { prop: "operations", render: row => {
+        switch (row.name) {
+          case "Email":
+            return <Button type="info" size="small">Edit</Button>;
+          case "Delete Profile":
+            return <Button type="danger" size="small">Delete</Button>;
+          default:
+            return;
+        }
+      } }
+    ]
   };
 
   componentDidMount() {
@@ -53,7 +75,8 @@ class ProfilePage extends React.Component {
   }
 
   render() {
-    const { orders } = this.state;
+    const { orders, columns } = this.state;
+    const { user } = this.props;
     return (
       <>
         <Tabs activeName="1" className="profile-tabs">
@@ -67,6 +90,18 @@ class ProfilePage extends React.Component {
             name="1"
           >
             <h2 className="header">Profile Summary</h2>
+            <Table
+              columns={columns}
+              data={[
+                { name: "Your Id", value: user.attributes.sub },
+                { name: "Username", value: user.username },
+                { name: "Email", value: user.attributes.email },
+                { name: "Phone Number", value: user.attributes.phone_number },
+                { name: "Delete Profile", value: "Sorry to see you go" },
+              ]}
+              showHeader={false}
+              rowClassName={row => row.name === "Delete Profile" && "delete-profile"}
+            />
           </Tabs.Pane>
           <Tabs.Pane
             label={
