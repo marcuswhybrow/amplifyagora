@@ -91,10 +91,9 @@ class ProfilePage extends React.Component {
                         Shipping Address
                         <div className="ml-2">
                           <p>{order.shippingAddress.address_line1}</p>
-                          <p>{order.shippingAddress.city}</p>
-                          <p>{order.shippingAddress.address_state}</p>
-                          <p>{order.shippingAddress.country}</p>
-                          <p>{order.shippingAddress.address_zip}</p>
+                          <p>
+                            {order.shippingAddress.city}, {order.shippingAddress.address_state} {order.shippingAddress.country} {order.shippingAddress.address_zip}
+                          </p>
                         </div>
                       </>
                     )}
