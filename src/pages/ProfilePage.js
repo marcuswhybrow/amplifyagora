@@ -2,7 +2,7 @@ import React from "react";
 import { API, graphqlOperaiton, graphqlOperation } from "aws-amplify";
 // prettier-ignore
 import { Table, Button, Notification, MessageBox, Message, Tabs, Icon, Form, Dialog, Input, Card, Tag } from 'element-react'
-import { convertCentsToDollars, convertDollarsToCents } from "../utils";
+import { convertCentsToDollars } from "../utils";
 
 const getUser = `query GetUser($id: ID!) {
   getUser(id: $id) {
@@ -84,7 +84,7 @@ class ProfilePage extends React.Component {
                   <pre>
                     <p>Order Id: {order.id}</p>
                     <p>Product Description: {order.product.description}</p>
-                    <p>Price: ${convertDollarsToCents(order.product.price)}</p>
+                    <p>Price: ${convertCentsToDollars(order.product.price)}</p>
                     <p>Purchased on {order.createAt}</p>
                     {order.shippingAddress && (
                       <>
