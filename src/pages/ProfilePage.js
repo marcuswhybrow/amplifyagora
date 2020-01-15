@@ -85,7 +85,7 @@ class ProfilePage extends React.Component {
                     <p>Order Id: {order.id}</p>
                     <p>Product Description: {order.product.description}</p>
                     <p>Price: ${convertCentsToDollars(order.product.price)}</p>
-                    <p>Purchased on {order.createAt}</p>
+                    <p>Purchased on {order.createdAt}</p>
                     {order.shippingAddress && (
                       <>
                         Shipping Address
